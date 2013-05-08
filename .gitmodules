@@ -1,0 +1,6 @@
+[submodule ".deps/zlog"]
+	path = .deps/zlog
+	url = https://github.com/HardySimpson/zlog.git
+[submodule ".deps/libevent"]
+	path = .deps/libevent
+	url = https://github.com/nmathewson/Libevent.git
