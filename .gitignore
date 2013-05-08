@@ -1,0 +1,26 @@
+*.o
+*.a
+*.db
+*.bak
+*.bakk
+*.d
+*~
+\#*
+/TODO
+/test
+/build
+/conf/zlog-chk-conf
+# The header file of berkeley db
+db.h
+zlog.h
+configure.h
+
+log
+url
+siteht
+test_conns
+config.h
+core
+
+/.cproject
+/.project

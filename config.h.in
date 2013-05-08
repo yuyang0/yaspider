@@ -1,0 +1,15 @@
+#ifndef _CONFIG_H_
+#cmakedefine WIN32             1
+
+#cmakedefine HAVE_STRCASESTR   1
+#cmakedefine HAVE_STRDUP       1
+#cmakedefine HAVE_STRCASECMP   1
+#cmakedefine HAVE_VSNPRINTF    1
+
+#cmakedefine HAVE_UNISTD_H     1
+#cmakedefine HAVE_SYS_STAT_H   1
+#cmakedefine HAVE_SYS_TYPES_H  1
+#cmakedefine HAVE_SYS_SOCKET_H 1
+#cmakedefine HAVE_SYS_TIME_H   1
+#cmakedefine HAVE_LIMITS_H     1
+#endif

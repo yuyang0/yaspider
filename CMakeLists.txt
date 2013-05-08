@@ -1,0 +1,38 @@
+PROJECT(YASPIDER)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+# show the command make really use
+# set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+# for debug,create symbol table
+SET(CMAKE_BUILD_TYPE Debug)
+SET(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -Wall -g ")
+SET(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O3 -Wall")
+# directories of additional CMake modules
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules  ${CMAKE_MODULE_PATH})
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
+SUBDIRS(src)
+
+# check specified features and create config.h
+# check some function
+INCLUDE (CheckIncludeFiles)
+include(CheckFunctionExists)
+INCLUDE (CheckSymbolExists)
+# check function
+#CHECK_SYMBOL_EXISTS(strcasestr string.h HAVE_STRCASESTR)
+CHECK_FUNCTION_EXISTS(strcasestr HAVE_STRCASESTR)
+CHECK_FUNCTION_EXISTS(strdup HAVE_STRDUP)
+CHECK_FUNCTION_EXISTS(strcasecmp HAVE_STRCASECMP)
+
+CHECK_FUNCTION_EXISTS(vsnprintf HAVE_VSNPRINTF)
+
+# check header files
+CHECK_INCLUDE_FILES (unistd.h HAVE_UNISTD_H)
+CHECK_INCLUDE_FILES (sys/stat.h HAVE_SYS_STAT_H)
+CHECK_INCLUDE_FILES (sys/types.h HAVE_SYS_TYPES_H)
+CHECK_INCLUDE_FILES (sys/socket.h HAVE_SYS_SOCKET_H)
+CHECK_INCLUDE_FILES (sys/time.h HAVE_SYS_TIME_H)
+CHECK_INCLUDE_FILES (limits.h HAVE_LIMITS_H)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+
+# ADD_SUBDIRECTORY(lib core)
