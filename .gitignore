@@ -20,7 +20,7 @@ url
 siteht
 test_conns
 config.h
-core
+#core
 
 /.cproject
 /.project
