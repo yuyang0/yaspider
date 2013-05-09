@@ -138,9 +138,9 @@ void event_cb(struct bufferevent *bev, short events, void *ptr)
         statis.conns--;
         statis.ram_urls--;
 
-        fetch_urls();
-        fetch_dns();
-        fetch_pages();
+        /* fetch_urls(); */
+        /* fetch_dns(); */
+        /* fetch_pages(); */
     }
 }
 
@@ -155,7 +155,12 @@ void read_cb(struct bufferevent *bev, void *ptr)
         conn_append(cn, buf, n);
     }
 }
-
+static void timer_cb(int fd, short event, void *arg)
+{
+    fetch_urls();
+    fetch_dns();
+    fetch_pages();
+}
 void dns_cb(int errcode, struct evutil_addrinfo *addr, void *ptr)
 {
     site_t *si = (site_t *) ptr;
@@ -197,9 +202,8 @@ void dns_cb(int errcode, struct evutil_addrinfo *addr, void *ptr)
     }
     statis.dns_calls--;
 
-    //fetch_urls();
-    fetch_dns();
-    fetch_pages();
+    /* fetch_dns(); */
+    /* fetch_pages(); */
 }
 void init_ev()
 {
@@ -208,6 +212,13 @@ void init_ev()
     
     ready_sites_fifo = fifo_new(NULL);
     wait_sites_fifo = fifo_new(NULL);
+    /* set timer */
+    struct event *ev;
+    struct timeval tv;
+    tv.tv_sec = 0;
+    tv.tv_usec = 50000;         /* 30 milliseconds */
+    ev = event_new(main_base, -1, EV_TIMEOUT | EV_PERSIST, timer_cb, NULL);
+    event_add(ev, &tv);
 }
 int create_bufferev (conn_t *cn)
 {
