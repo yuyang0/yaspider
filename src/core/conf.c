@@ -5,7 +5,7 @@
  *        Created:  2013-04-14 18:07:47
  *       Compiler:  gcc
  *
- *         Author:  Yu Yang 
+ *         Author:  Yu Yang
  *			Email:  yy1990cn@gmail.com
  * =======================================================================
  */
@@ -14,10 +14,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include <assert.h>
-
 #include "str.h"
 #include "conf.h"
-
 #define MAXLINE 1024
 #define SEP ' '
 conf_t settings;   //the global conf object
@@ -148,7 +146,7 @@ void get_multi_str_val (FILE *fp, char *entry, char **ret, int len)
     fseek(fp, 0, SEEK_SET);
     char line[MAXLINE];
     bool in_val = false;
-    
+
     while (fgets(line, MAXLINE, fp) != NULL)
     {
         if (is_comment_line(line) || is_blank_line(line))
@@ -292,7 +290,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "conf init error\n");
         return -1;
     }
-    
+
     return 0;
 }
 #endif

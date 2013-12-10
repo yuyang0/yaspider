@@ -41,6 +41,7 @@ int save(conn_t *cn)
         /* do nothing*/
         break;
     }
+    return 0;
 }
 /* simple save, MAX_FILES_PER_DIR files per directory */
 static int save_file(conn_t *cn)

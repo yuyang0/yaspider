@@ -6,7 +6,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 /*
-#define _HAVE_SERVER_
+  #define _HAVE_SERVER_
 */
 static void enable_coredump();
 
@@ -17,7 +17,7 @@ typedef void (*Sigfunc) (int);
 
 static void sigint_handler(int signo)
 {
-	exit(0);
+    exit(0);
 }
 /*the SEGV signal handler (self-debug)*/
 /* static void sigsegv_handler(int signo) */
@@ -38,10 +38,10 @@ static void sigint_handler(int signo)
 
 int main (int argc, char *argv[])
 {
-	if (signal(SIGINT, sigint_handler) == SIG_ERR)
-		return -1;
-	/* if (signal(SIGSEGV, sigsegv_handler) == SIG_ERR) */
-	/* 	return -1; */
+    if (signal(SIGINT, sigint_handler) == SIG_ERR)
+        return -1;
+    /* if (signal(SIGSEGV, sigsegv_handler) == SIG_ERR) */
+    /* 	return -1; */
     enable_coredump();
     char *conf_dir = NULL;
     /* parse option */
@@ -62,13 +62,13 @@ int main (int argc, char *argv[])
             break;
         }
     }
-	if (init_all(conf_dir) < 0)
-		exit(1);
-	if (atexit(destroy_all) != 0)
-	{
-		log_fatal("can not register the destroy_all\n");
-	}
-	if (settings.have_server)
+    if (init_all(conf_dir) < 0)
+        exit(1);
+    if (atexit(destroy_all) != 0)
+    {
+        log_fatal("can not register the destroy_all\n");
+    }
+    if (settings.have_server)
     {
         int err = start_thread (start_server, &settings.port);
         if (err != 0)
@@ -76,35 +76,35 @@ int main (int argc, char *argv[])
 
     }
 
-	printf("the spider is running...........\n");
+    printf("the spider is running...........\n");
 
     main_loop();
-	return 0;
+    return 0;
 }
 
 void enable_coredump()
 {
     /*change the core dump resource limit*/
-	struct rlimit rlim, rlim_new;
+    struct rlimit rlim, rlim_new;
     if (getrlimit(RLIMIT_CORE, &rlim) == 0)
     {
         rlim_new.rlim_cur = rlim_new.rlim_max = RLIM_INFINITY;
-        if (setrlimit(RLIMIT_CORE, &rlim_new)!= 0) 
-		{
-			/* failed. try raising just to the old max */
-			rlim_new.rlim_cur = rlim_new.rlim_max = rlim.rlim_max;
-			(void)setrlimit(RLIMIT_CORE, &rlim_new);
-		}
-	}
-	/*
-	 * getrlimit again to see what we ended up with. Only fail if
-	 * the soft limit ends up 0, because then no core files will be
-	 * created at all.
-	 */
+        if (setrlimit(RLIMIT_CORE, &rlim_new)!= 0)
+        {
+            /* failed. try raising just to the old max */
+            rlim_new.rlim_cur = rlim_new.rlim_max = rlim.rlim_max;
+            (void)setrlimit(RLIMIT_CORE, &rlim_new);
+        }
+    }
+    /*
+     * getrlimit again to see what we ended up with. Only fail if
+     * the soft limit ends up 0, because then no core files will be
+     * created at all.
+     */
 
-	if ((getrlimit(RLIMIT_CORE, &rlim) != 0) || rlim.rlim_cur == 0) 
-	{
-		log_error("setrlimit core dump error");
-		exit(1);
-	}
+    if ((getrlimit(RLIMIT_CORE, &rlim) != 0) || rlim.rlim_cur == 0)
+    {
+        log_error("setrlimit core dump error");
+        exit(1);
+    }
 }
