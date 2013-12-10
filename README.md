@@ -1,4 +1,7 @@
 # Yet Another Spider
+
+[![Build Status](https://travis-ci.org/yuyang0/yaspider.png)](https://travis-ci.org/yuyang0/yaspider)
+
 This spider written in C has  most features of larbin. It depends on following packages:
 
 *  libevent (an event loop library)
